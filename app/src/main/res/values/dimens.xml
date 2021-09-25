@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_margin">16dp</dimen>
+    <!--
+    Because the window insets on round devices are larger than 15dp, this padding only applies
+    to square screens.
+    -->
+    <dimen name="box_inset_layout_padding">0dp</dimen>
+
+    <dimen name="editTextBorderRadius">4dp</dimen>
+
+    <dimen name="btnBorderRadius">8dp</dimen>
+
+    <dimen name="btnTextSize">20sp</dimen>
+    <dimen name="labelFontSize">20sp</dimen>
+    <dimen name="editTextFontSize">16sp</dimen>
+    <dimen name="infoFontSize">16sp</dimen>
+
+    <dimen name="dialogInputAreaPadding">8dp</dimen>
+
+    <!--
+    This padding applies to both square and round screens. The total padding between the buttons
+    and the window insets is box_inset_layout_padding (above variable) on square screens and
+    inner_frame_layout_padding (below variable) on round screens.
+    -->
+    <dimen name="inner_frame_layout_padding">5dp</dimen>
+</resources>

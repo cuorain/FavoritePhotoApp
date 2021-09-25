@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">OriginalFileManager</string>
+    <string-array name="lvFolderList">
+        <item>フォルダ１</item>
+        <item>フォルダ２</item>
+        <item>フォルダ３</item>
+        <item>フォルダ４</item>
+    </string-array>
+    <string-array name="lvFileList">
+        <item>ファイル１</item>
+        <item>ファイル２</item>
+        <item>ファイル３</item>
+        <item>ファイル４</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--AddFileActivity-->
+    <string name="title_activity_add_file">AddFileActivity</string>
+    <string name="lblTitle">タイトル</string>
+    <string name="lblMemo">メモ</string>
+    <string name="txtInfoAddFile">画像・動画を保存するには上のアイコンをタップ</string>
+    <string name="btnBack">戻る</string>
+    <string name="btnCancel">キャンセル</string>
+    <string name="btnSave">保存</string>
+
+    <!--AddFolderFragment-->
+    <string name="add_folder_dialog_title">フォルダ追加</string>
+    <string name="add_folder_dialog_message">フォルダ名を入力してください。</string>
+    <string name="dialog_btn_confirm">決定</string>
+    <string name="dialog_btn_ng">キャンセル</string>
+    <string name="lblFolderName">フォルダ名</string>
+    <string name="dialog_empty_error_toast">フォルダ名は必須です。</string>
+    <string name="dialog_db_error_toast">登録が失敗しました。</string>
+    <string name="dialog_success_toast">登録が成功しました。</string>
+
+    <!--エラーダイアログ-->
+    <string name="dialog_btn_ok">OK</string>
+    <string name="filename_empty_dialog_message">ファイル名は必須です。</string>
+
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+</resources>
