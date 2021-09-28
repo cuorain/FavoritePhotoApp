@@ -38,6 +38,7 @@ public class AddFolderFragment extends DialogFragment {
         public void onClick(DialogInterface dialog, int which) {
             //処理終了時のトーストメッセージ
             String msg;
+            Bundle result = new Bundle();
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     //入力されたフォルダ名取得
@@ -58,7 +59,12 @@ public class AddFolderFragment extends DialogFragment {
                             //登録成功
                             //TODO: ROWID使える？
                             msg = getString(R.string.dialog_success_toast);
+                            //伝える結果を格納
+                            result.putString("result", "OK");
                         }
+                        //親フラグメントに結果を返す
+
+                        getParentFragmentManager().setFragmentResult("requestKey", result);
                         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
                     }
                 case DialogInterface.BUTTON_NEGATIVE:

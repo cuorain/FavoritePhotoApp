@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +31,9 @@ import java.util.Map;
 public class FolderListFragment extends Fragment {
 
     RecyclerView rvFolder;
+    List<Map<String, Object>> folderList;
+    FolderRecyclerViewAdapter adapter;
+
 
     public FolderListFragment() {
         // Required empty public constructor
@@ -77,19 +81,35 @@ public class FolderListFragment extends Fragment {
         rvFolder.setLayoutManager(layoutManager);
 
         //リストデータ取得
-        List<Map<String, Object>> folderList = getFolderList();
+        folderList = getFolderList();
         //データがなければ、フォルダ作成するようにﾒｯｾｰｼﾞ
         if (folderList.size() == 0) {
             TextView tvNoFolder = view.findViewById(R.id.tvNoFolderMessage);
             tvNoFolder.setVisibility(View.VISIBLE);
         }
         //アダプタオブジェクト生成
-        FolderRecyclerViewAdapter adapter = new FolderRecyclerViewAdapter(folderList, view.getContext());
+        adapter = new FolderRecyclerViewAdapter(folderList, view.getContext());
         //リサイクラビューにアダプタオブジェクトをセット
         rvFolder.setAdapter(adapter);
         //区切り線を入れる
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mainActivity, layoutManager.getOrientation());
         rvFolder.addItemDecoration(dividerItemDecoration);
+
+        //子フラグメントから結果を受け取るための設定
+        getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener(){
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                String getResult = result.getString("result");
+                //OK返ってきたらリスト更新
+                if(getResult.equals("OK")){
+                    //一旦リストをクリアしてから再検索データを挿入。
+                    folderList.clear();
+                    folderList.addAll(getFolderList());
+                    //データが変わったことを通知。
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
         return view;
     }
 
@@ -112,9 +132,15 @@ public class FolderListFragment extends Fragment {
         }
     }
 
+
+
     private List<Map<String, Object>> getFolderList() {
         //DBヘルパー生成
         FileDatabaseHelper _helper = new FileDatabaseHelper(getActivity());
         return _helper.getAllFolderList();
+    }
+
+    public void reloadFolderList(){
+        rvFolder.getAdapter().notifyDataSetChanged();
     }
 }

@@ -22,6 +22,7 @@
     <string name="btnBack">戻る</string>
     <string name="btnCancel">キャンセル</string>
     <string name="btnSave">保存</string>
+    <string name="filename_empty_dialog_message">ファイル名は必須です。</string>
 
     <!--AddFolderFragment-->
     <string name="add_folder_dialog_title">フォルダ追加</string>
