@@ -37,7 +37,7 @@ public class AddFolderFragment extends DialogFragment {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             //処理終了時のトーストメッセージ
-            String msg = "";
+            String msg;
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     //入力されたフォルダ名取得
@@ -50,16 +50,16 @@ public class AddFolderFragment extends DialogFragment {
                     }else {
                         //フォルダマスタへの登録
                         FolderModel folder = new FolderModel(folderName);
-                        if(folder.AddFolder(_helper) == -1){
+                        int a = folder.AddFolder(_helper);
+                        if(a == -1){
                             //DB登録エラー
                             msg = getString(R.string.dialog_db_error_toast);
-                            Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
                         }else{
                             //登録成功
                             //TODO: ROWID使える？
                             msg = getString(R.string.dialog_success_toast);
-                            Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
                         }
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
                     }
                 case DialogInterface.BUTTON_NEGATIVE:
                     //何もせず閉じる

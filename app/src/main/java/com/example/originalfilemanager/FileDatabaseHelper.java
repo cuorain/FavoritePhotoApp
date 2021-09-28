@@ -1,8 +1,15 @@
 package com.example.originalfilemanager;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FileDatabaseHelper extends SQLiteOpenHelper {
     //データベースﾌｧｲﾙ名の定数
@@ -17,27 +24,38 @@ public class FileDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //テーブル作成SQL
-        StringBuilder sb1 = new StringBuilder();
-        sb1.append("CREATE TABLE filem (");
-        sb1.append("_id INTEGER PRIMARY KEY autoincrement,");
-        sb1.append("title TEXT,");
-        sb1.append("memo TEXT,");
-        sb1.append("filename TEXT,");
-        sb1.append("folder_id INTEGER);");
-        String sql1 = sb1.toString();
-        db.execSQL(sql1);
+        //filem ファイルマスタ作成
+        String sql = "CREATE TABLE filem (_id INTEGER PRIMARY KEY autoincrement, title TEXT, memo TEXT, filename TEXT, folder_id INTEGER);";
+        db.execSQL(sql);
 
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("CREATE TABLE folderm (");
-        sb2.append("_id INTEGER PRIMARY KEY autoincrement,");
-        sb2.append("folderName TEXT);");
-        String sql2 = sb2.toString();
-
-        db.execSQL(sql2);
+        //folderm フォルダマスタ作成
+        sql = "CREATE TABLE folderm (_id INTEGER PRIMARY KEY autoincrement, folderName TEXT);";
+        db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public List<Map<String, Object>> getAllFolderList(){
+        SQLiteDatabase db = getReadableDatabase();
+        db.beginTransaction();
+        //select文
+        String selectSql = "SELECT folderName FROM folderm";
+        //戻り値のリスト
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        //select実行 try-with-resource文
+        try(Cursor cursor = db.rawQuery(selectSql, null)) {
+            //取得したデータ(Cursor)をList化
+            while (cursor.moveToNext()) {
+                Map<String, Object> folder = new HashMap<>();
+                folder.put("folderName", cursor.getString(cursor.getColumnIndex("folderName")));
+                result.add(folder);
+            }
+        }
+        db.endTransaction();
+        return result;
     }
 }
