@@ -15,9 +15,10 @@
     <dimen name="labelFontSize">20sp</dimen>
     <dimen name="editTextFontSize">16sp</dimen>
     <dimen name="infoFontSize">16sp</dimen>
+    <dimen name="folderNameFontSize">32sp</dimen>
 
     <dimen name="dialogInputAreaPadding">8dp</dimen>
-
+    <dimen name="folderNamePadding">8dp</dimen>
     <!--
     This padding applies to both square and round screens. The total padding between the buttons
     and the window insets is box_inset_layout_padding (above variable) on square screens and

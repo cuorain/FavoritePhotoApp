@@ -15,11 +15,11 @@ public class FolderModel {
     }
 
     public int AddFolder(FileDatabaseHelper _helper){
-        int result = -1;
         //DBヘルパーからDB接続オブジェクト取得
         SQLiteDatabase db = _helper.getWritableDatabase();
         SQLiteStatement stmt = null;
         db.beginTransaction();
+        int result;
         try {
             //インサート文
             String insertSql = "INSERT INTO folderm (folderName) VALUES (?)";
@@ -29,6 +29,7 @@ public class FolderModel {
             stmt.bindString(1, folderName);
             //インサート文実行 RowIdを返す（エラーなら-1）
             result = (int) stmt.executeInsert();
+            db.setTransactionSuccessful();
         }finally {
             if(stmt != null) {
                 stmt.close();
