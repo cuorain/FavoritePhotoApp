@@ -16,6 +16,8 @@
     <dimen name="editTextFontSize">16sp</dimen>
     <dimen name="infoFontSize">16sp</dimen>
     <dimen name="folderNameFontSize">32sp</dimen>
+    <dimen name="noDataFontSize">24sp</dimen>
+
 
     <dimen name="dialogInputAreaPadding">8dp</dimen>
     <dimen name="folderNamePadding">8dp</dimen>

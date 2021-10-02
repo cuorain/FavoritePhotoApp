@@ -3,6 +3,7 @@ package com.example.originalfilemanager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -59,9 +60,23 @@ public class AddFileActivity extends AppCompatActivity {
     private ConstraintLayout layout;
     private InputMethodManager inputMethodManager;
 
+    //現在のフォルダ情報
+    private String folderName;
+    private String folderId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //タップ時に取得したデータ受取
+        Intent intent = getIntent();
+        if(intent != null){
+            folderName = intent.getStringExtra("FOLDER_NAME");
+            folderId = intent.getStringExtra("FOLDER_ID");
+        }
+        if (folderId.isEmpty()) {
+            //TODO:フォルダが取得できてないとエラー
+        }
+
         setContentView(R.layout.activity_add_file);
 
         layout = (ConstraintLayout)findViewById(R.id.activityAddFile);
@@ -245,16 +260,17 @@ public class AddFileActivity extends AppCompatActivity {
             db.beginTransaction();
             try {
                 //インサート文
-                //TODO:フォルダIDの登録
-                String insertSql = "INSERT INTO myfilememo (title, memo, filename) VALUES (?, ?, ?)";
+                String insertSql = "INSERT INTO filem (title, memo, filename, folder_id) VALUES (?, ?, ?, ?)";
                 //プリペアードステートメント取得
                 stmt = db.compileStatement(insertSql);
                 //変数バインド
                 stmt.bindString(1, etTitle.getText().toString());
                 stmt.bindString(2, etMemo.getText().toString());
                 stmt.bindString(3, fileName);
+                stmt.bindLong(4, Integer.parseInt(folderId));
                 //インサート文実行
                 stmt.executeInsert();
+                db.setTransactionSuccessful();
             }finally {
                 if(stmt != null) {
                     stmt.close();

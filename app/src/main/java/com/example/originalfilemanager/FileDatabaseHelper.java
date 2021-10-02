@@ -42,7 +42,7 @@ public class FileDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         db.beginTransaction();
         //select文
-        String selectSql = "SELECT folderName FROM folderm";
+        String selectSql = "SELECT _id folderId, folderName FROM folderm";
         //戻り値のリスト
         List<Map<String, Object>> result = new ArrayList<>();
 
@@ -52,6 +52,30 @@ public class FileDatabaseHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 Map<String, Object> folder = new HashMap<>();
                 folder.put("folderName", cursor.getString(cursor.getColumnIndex("folderName")));
+                folder.put("folderId", cursor.getString(cursor.getColumnIndex("folderId")));
+                result.add(folder);
+            }
+        }
+        db.endTransaction();
+        return result;
+    }
+
+    public List<Map<String, Object>> getFileList(int folderId){
+        List<Map<String, Object>> result = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        db.beginTransaction();
+        //select文
+//        String selectSql = "SELECT _id, title, memo, filename, folder_id, folderName" +
+//                            " FROM filem INNER JOIN folderm ON _id = folder_id" +
+//                            " WHERE folder_id = " + folderId;
+        String selectSql = "SELECT _id, title FROM filem WHERE folder_id = " + folderId;
+        //select実行 try-with-resource文
+        try(Cursor cursor = db.rawQuery(selectSql, null)) {
+            //取得したデータ(Cursor)をList化
+            while (cursor.moveToNext()) {
+                Map<String, Object> folder = new HashMap<>();
+                folder.put("title", cursor.getString(cursor.getColumnIndex("title")));
+                folder.put("fileId", cursor.getString(cursor.getColumnIndex("_id")));
                 result.add(folder);
             }
         }

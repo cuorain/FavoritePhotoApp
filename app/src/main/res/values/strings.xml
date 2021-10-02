@@ -38,6 +38,7 @@
     <string name="dialog_btn_ok">OK</string>
 
     <string name="txtNoFolderFind">フォルダがありません。</string>
+    <string name="txtNoFileFind">フォルダ内にデータがありません。</string>
 
     <!--リストホルダのデータキー名-->
     <string name="list_key_folder_name">folderName</string>
