@@ -51,8 +51,7 @@ public class AddFolderFragment extends DialogFragment {
                     }else {
                         //フォルダマスタへの登録
                         FolderModel folder = new FolderModel(folderName);
-                        int a = folder.AddFolder(_helper);
-                        if(a == -1){
+                        if(folder.AddFolder(_helper) == -1){
                             //DB登録エラー
                             msg = getString(R.string.dialog_db_error_toast);
                         }else{
