@@ -17,5 +17,12 @@
         app:layout_constraintStart_toStartOf="@id/layoutFileItem"
         app:layout_constraintTop_toTopOf="@id/layoutFileItem"
         />
+    <TextView
+        android:id="@+id/tvFileId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/layoutFileItem"
+        app:layout_constraintTop_toTopOf="@id/layoutFileItem"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

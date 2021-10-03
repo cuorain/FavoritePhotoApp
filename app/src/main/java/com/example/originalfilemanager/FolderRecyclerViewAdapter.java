@@ -66,7 +66,6 @@ public class FolderRecyclerViewAdapter extends RecyclerView.Adapter<FolderRecycl
 
     public void onItemClick(View view) {
         String folderName = ((TextView)view.findViewById(R.id.tvFolderName)).getText().toString();
-        //TODO:取得したフォルダ名から、フォルダアイテムを表示
         //遷移先のファイル内を表示するフラグメント
         FileListFragment fragment = new FileListFragment();
         //値を渡す

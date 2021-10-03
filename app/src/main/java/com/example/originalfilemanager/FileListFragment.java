@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -78,6 +79,9 @@ public class FileListFragment extends Fragment {
             TextView tvNoFile = view.findViewById(R.id.tvNoFileMessage);
             tvNoFile.setVisibility(View.VISIBLE);
         }
+        //区切り線を入れる
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mainActivity, layoutManager.getOrientation());
+        rvFile.addItemDecoration(dividerItemDecoration);
         rvFile.setAdapter(new FileRecyclerViewAdapter(fileList, view.getContext()));
         return view;
     }
