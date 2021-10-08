@@ -26,6 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivFile"
         android:scrollbars="vertical"
+        android:textSize="@dimen/labelFontSize"
         android:maxLines="5"
         android:minLines="5"/>
 
