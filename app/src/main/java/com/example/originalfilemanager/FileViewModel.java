@@ -94,7 +94,6 @@ public class FileViewModel extends ViewModel {
             catch (Exception ex){
                 ex.printStackTrace();
             }
-            String s = "";
         }
     }
 }

@@ -1,10 +1,13 @@
 package com.example.originalfilemanager;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -54,6 +57,8 @@ public class FileViewFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
         //アクションバーにタイトルセット
         mainActivity.setTitle(title);
+        //メニューの変更
+        mainActivity.invalidateOptionsMenu();
 
         //表示データ取得
         //ビューモデル取得
@@ -82,6 +87,26 @@ public class FileViewFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        MenuItem menuAdd = menu.findItem(R.id.menu_add);
+        menuAdd.setVisible(false);
+        MenuItem menuEdit = menu.findItem(R.id.menu_edit);
+        menuEdit.setVisible(true);
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            //追加ボタン押したときの処理
+            case R.id.menu_edit:
+                Intent intent = new Intent(getActivity(), AddFileActivity.class);
+                intent.putExtra("FILE_ID", fileId);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
