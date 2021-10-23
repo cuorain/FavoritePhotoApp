@@ -37,4 +37,26 @@ public class FileModel {
 
         return file;
     }
+
+    public int DeleteFile(String fileId) {
+        FileDatabaseHelper dbHelper = new FileDatabaseHelper(_context);
+        //DBヘルパーからDB接続オブジェクト取得
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteStatement stmt = null;
+        int result = -1;
+        try {
+            db.beginTransaction();
+            String sql = "DELETE FROM filem where _id = ?";
+            stmt = db.compileStatement(sql);
+            stmt.bindString(1, fileId);
+            result = stmt.executeUpdateDelete();
+            db.setTransactionSuccessful();
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            db.endTransaction();
+        }
+        return result;
+    }
 }

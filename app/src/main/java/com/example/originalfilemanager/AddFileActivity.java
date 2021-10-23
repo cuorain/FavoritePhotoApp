@@ -267,33 +267,45 @@ public class AddFileActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //ファイルが取得できてなければエラー
-            if (TextUtils.isEmpty(_fileName) && TextUtils.isEmpty(_fileId)) {
+            if (TextUtils.isEmpty(_fileName) || TextUtils.isEmpty(_fileId)) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getApplication());
                 builder.setMessage(R.string.filename_empty_dialog_message);
                 builder.setPositiveButton(R.string.dialog_btn_ok, null);
                 builder.show();
                 return;
             }
-            //画像の保存
-            try {
-                FileOutputStream out = null;
-                try {
-                    out = getApplicationContext().openFileOutput(_fileName, Context.MODE_PRIVATE);
 
-                    ImageView selectImage = findViewById(R.id.ivAddIcon);
-                    Bitmap bitmap = ((BitmapDrawable) selectImage.getDrawable()).getBitmap();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                } catch (FileNotFoundException ex) {
-                    //TODO: エラーメッセージ表示
-                } finally {
-                    if (out != null) {
-                        out.close();
-                        out = null;
+            //既に保存しているファイルかチェック
+            //TODO:重複保存のテストする
+            boolean isDuplicated = true;
+            try{
+                InputStream is = getApplicationContext().openFileInput(_fileName);
+            }catch (FileNotFoundException ex){
+                isDuplicated = false;
+            }
+
+            //画像の保存
+            if(!isDuplicated) {
+                try {
+                    FileOutputStream out = null;
+                    try {
+                        out = getApplicationContext().openFileOutput(_fileName, Context.MODE_PRIVATE);
+
+                        ImageView selectImage = findViewById(R.id.ivAddIcon);
+                        Bitmap bitmap = ((BitmapDrawable) selectImage.getDrawable()).getBitmap();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    } catch (FileNotFoundException ex) {
+                        //TODO: エラーメッセージ表示
+                    } finally {
+                        if (out != null) {
+                            out.close();
+                            out = null;
+                        }
                     }
+                } catch (IOException ex) {
+                    //TODO: エラーメッセージ表示
+                    ex.printStackTrace();
                 }
-            } catch (IOException ex) {
-                //TODO: エラーメッセージ表示
-                ex.printStackTrace();
             }
 
             //タイトル取得
