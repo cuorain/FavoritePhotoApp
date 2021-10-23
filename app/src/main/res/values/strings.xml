@@ -33,11 +33,15 @@
     <string name="dialog_empty_error_toast">フォルダ名は必須です。</string>
     <string name="dialog_db_error_toast">登録が失敗しました。</string>
     <string name="dialog_success_toast">登録が成功しました。</string>
+    <string name="dialog_delete_success_toast">削除が成功しました。</string>
+    <string name="dialog_delete_error_toast">削除が失敗しました。</string>
+    <string name="dialog_delete_confirm">ファイルを削除しますが、よろしいですか？</string>
 
     <!--エラーダイアログ-->
     <string name="dialog_btn_ok">OK</string>
 
     <string name="txtNoFolderFind">フォルダがありません。</string>
+    <string name="txtNoFileFind">フォルダ内にデータがありません。</string>
 
     <!--リストホルダのデータキー名-->
     <string name="list_key_folder_name">folderName</string>

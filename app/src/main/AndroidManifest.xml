@@ -26,7 +26,8 @@
         </activity>
         <activity
             android:name=".AddFileActivity"
-            android:label="@string/title_activity_add_file">
+            android:label="@string/title_activity_add_file"
+            android:theme="@style/Theme.OriginalFileManager">
         </activity>
     </application>
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +45,9 @@ public class FolderRecyclerViewAdapter extends RecyclerView.Adapter<FolderRecycl
         String folderName = (String) item.get("folderName");
         //ビューホルダのTextViewに設定
         holder._tvFolderName.setText(folderName);
+        //ID
+        String folderId = (String) item.get("folderId");
+        holder._tvFolderId.setText(folderId);
         //クリックリスナを設定
         holder._layoutFolderItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +66,15 @@ public class FolderRecyclerViewAdapter extends RecyclerView.Adapter<FolderRecycl
 
     public void onItemClick(View view) {
         String folderName = ((TextView)view.findViewById(R.id.tvFolderName)).getText().toString();
-        //TODO:取得したフォルダ名から、フォルダアイテムを表示
         //遷移先のファイル内を表示するフラグメント
-        ItemFragment fragment = new ItemFragment();
+        FileListFragment fragment = new FileListFragment();
         //値を渡す
         Bundle bundle = new Bundle();
 //        bundle.putInt("SELECTED_FOLDER_POSITION", position);
         bundle.putString("FOLDER_NAME", folderName);
+        //フォルダIDを伝える
+        String folderId = ((TextView)view.findViewById(R.id.tvFolderId)).getText().toString();
+        bundle.putString("FOLDER_ID", folderId);
         fragment.setArguments(bundle);
         //画面呼び出し
         //フラグメントマネージャー取得
